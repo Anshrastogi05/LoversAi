@@ -6,6 +6,7 @@ import AngleChangeComponent from "./planner/ai_tools/image_angle";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { paymentAPI } from "../api/api";
+import PlannerQuickMenu from "../components/PlannerQuickMenu";
 
 const PitchAIPage = ({ navigateTo }) => {
   const [showAngleChanger, setShowAngleChanger] = useState(false);
@@ -127,17 +128,119 @@ const PitchAIPage = ({ navigateTo }) => {
 
   return (
     <>
+      <div className="fixed left-6 top-6 z-30 sm:left-8 sm:top-8">
+        <button
+          type="button"
+          onClick={() => navigate("/planner")}
+          aria-label="Lovers AI home"
+          className="transition hover:opacity-90"
+        >
+          <img
+            src="/images/LogoLoversai.png"
+            alt="Lovers AI"
+            className="h-20 w-auto object-contain sm:h-24"
+          />
+        </button>
+      </div>
+
+      <PlannerQuickMenu />
+
       {/* Hero Section */}
-      <div className="relative w-full h-screen flex items-center justify-center text-white overflow-hidden">
+      <div className="relative w-full min-h-screen flex items-center justify-center text-white overflow-hidden px-4 py-24">
         <div
           className="absolute inset-0 bg-cover bg-center z-0"
-          style={{ backgroundImage: `url("./images/bridal.png")` }}
+          style={{ backgroundImage: 'url("/images/planner-ai-hero-bride.png")' }}
         ></div>
-        <div className="absolute inset-0 bg-black bg-opacity-40 z-10"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,8,6,0.4),rgba(12,8,6,0.62))] z-10"></div>
+
+        <div className="relative z-20 w-full max-w-7xl">
+          <div className="overflow-hidden rounded-[34px] border border-[#cda98f]/20 bg-[rgba(24,16,12,0.88)] shadow-[0_28px_80px_rgba(0,0,0,0.4)]">
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
+              <div className="border-b border-[#cda98f]/12 p-8 lg:border-b-0 lg:border-r lg:border-[#cda98f]/12 md:p-10 lg:p-14">
+                <p className="text-[12px] uppercase tracking-[0.34em] text-white/55 mb-5">
+                  Planner AI Workspace
+                </p>
+                <h1 className="font-heading text-[46px] leading-[0.94] md:text-[64px] text-[#fff6ea]">
+                  Pitch with AI
+                </h1>
+                <p className="mt-5 max-w-xl text-base md:text-lg leading-8 text-white/65">
+                  Create polished wedding concepts, retexture venue ideas, explore alternate image angles, and build premium visual pitches for couples.
+                </p>
+
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <button
+                    onClick={() =>
+                      handleToolClick("retexturing", () => setShowRetexturing(true))
+                    }
+                    className="loverai-btn-primary text-[15px]"
+                  >
+                    Open Retexturing
+                  </button>
+                  <button
+                    onClick={() =>
+                      handleToolClick("angle-changer", () => setShowAngleChanger(true))
+                    }
+                    className="rounded-full border border-[#d6b39e]/25 px-10 py-4 text-[15px] font-semibold text-[#e5c4b0] transition hover:border-[#d6b39e]/45 hover:bg-[#d6b39e]/8"
+                  >
+                    Explore Angles
+                  </button>
+                </div>
+
+                <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {[
+                    { label: "Image Retexturing", value: "Live Tool" },
+                    { label: "Angle Change", value: "Planner Ready" },
+                    { label: "Image to Video", value: "Coming Soon" },
+                  ].map((item) => (
+                    <div
+                      key={item.label}
+                      className="rounded-2xl border border-[#d6b39e]/15 bg-[#9c7663]/18 px-4 py-4"
+                    >
+                      <p className="text-[11px] uppercase tracking-[0.18em] text-white/45">
+                        {item.label}
+                      </p>
+                      <p className="mt-2 text-lg font-semibold text-[#fff3e1]">
+                        {item.value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-[rgba(73,50,40,0.92)] p-6 md:p-8 lg:p-10">
+                <div className="rounded-[30px] border border-[#d6b39e]/14 bg-[rgba(205,169,143,0.14)] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.22)]">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="col-span-2 rounded-[24px] overflow-hidden h-[220px] md:h-[260px]">
+                      <img
+                        src="/images/planner-ai-hero-bride.png"
+                        alt="Planner AI board preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="rounded-[22px] overflow-hidden h-[180px]">
+                      <img
+                        src="/images/golden.png"
+                        alt="Retexturing preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="rounded-[22px] overflow-hidden h-[180px]">
+                      <img
+                        src="/images/Picture1.png"
+                        alt="Angle change preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Image Retexturing Section */}
-      <div id="ai-tools-section" className="bg-black py-20 px-4">
+      <div id="ai-tools-section" className="bg-[#0f0a07] py-20 px-4">
         <div className="w-full px-[6%]">
           <h2
             onClick={() =>
@@ -191,7 +294,7 @@ const PitchAIPage = ({ navigateTo }) => {
       </div>
 
       {/* Image Angle Section */}
-      <div className="bg-black py-20 px-4">
+      <div className="bg-[#0f0a07] py-20 px-4">
         <div className="w-full px-[6%] mt-16">
           <h2
             onClick={() =>
@@ -264,7 +367,7 @@ const PitchAIPage = ({ navigateTo }) => {
       </div>
 
       {/* Image to Video Section */}
-      <div className="bg-black py-20 px-4">
+      <div className="bg-[#0f0a07] py-20 px-4">
         <div className="w-full px-[6%] mt-32">
           <h2
             onClick={() =>
@@ -330,7 +433,7 @@ const PitchAIPage = ({ navigateTo }) => {
       </div>
 
       {/* Pricing Plans Section */}
-      <div id="subscriptions-section" className="bg-black py-20 px-4">
+      <div id="subscriptions-section" className="bg-[#0f0a07] py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-[64px] text-white text-center mb-8 heading-font">
             Choose Your Creative Plan
